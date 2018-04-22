@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Survival Click</title>
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+		<link href="../unicodetiles/unicodetiles.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body ng-app="survivalClick" ng-controller="core">
+		<h1>Survival Click</h1>
+		<div class="" ng-show="dead">
+			<h1><pre>if (🧡 < 1) "dead."</pre></h1>
+			<h1><button class="pure-button" onClick="window.location.reload()">Restart</button></h1>
+		</div>
+		<div class="panels" ng-cloak ng-show="!dead">
+			<div class="survivalPanel" ng-controller="survival">
+				<h2>Farm and Survive!</h2>
+				<div id="map">Enable JavaScript and reload the page.</div>
+				<div class="">
+					Move with the arrow keys. Step on things to collect them<br>
+					🍎🌱🌾🍉🌳🎁 Are great, collect them, plant 'em, open 'em, eat 'em!<br>
+					💩🐍 Are not geat, don't collect them! Actively avoid collecting them!<br><br>
+					🌾 will spread out and grow new things.
+					🎁 give random bonuses. Watch the stats/inv when you open them, there's no fancy effects. (LD shortcuts hey :P)
+
+
+				</div>
+			</div>
+			<div class="clickerPanel" ng-controller="clicker">
+				<div class="" ng-cloak>
+					<h2>Energy</h2>
+					<span class="playerProperty">{{player.energy}} ⚡</span>
+					<button type="button" name="button" ng-click="energyClick()">+5</button>
+					<h2>Health</h2>
+					<span class="playerProperty">Health: {{player.health}} / {{player.maxHealth}} 🧡</span>
+					<h2>Inventory</h2>
+
+					<span class="playerProperty" ng-repeat="itemStack in player.inventory" ng-show="itemStack.quantity > 0">
+						{{itemStack.quantity}} {{itemStack.symbol}}
+						<span ng-repeat="f in getFunctions(itemStack)">
+							<button type="button" name="button" ng-click="f.call()">{{f.name}}</button>
+						</span>
+
+					</span>
+
+					<br>
+
+				</div>
+				<br><br>
+
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.10/angular.js"></script>
+
+
+		<script src="./unicodetiles/unicodetiles.js"></script>
+		<script src="./unicodetiles/input.js"></script>
+		<script src="./unicodetiles/ut.WebGLRenderer.js"></script>
+		<script src="./unicodetiles/ut.CanvasRenderer.js"></script>
+		<script src="./unicodetiles/ut.DOMRenderer.js"></script>
+
+		<script src="app.js" charset="utf-8"></script>
+		<script src="gameService.js" charset="utf-8"></script>
+		<script src="controller/core.js" charset="utf-8"></script>
+		<script src="controller/survival.js" charset="utf-8"></script>
+		<script src="controller/clicker.js" charset="utf-8"></script>
+	</body>
+</html>
